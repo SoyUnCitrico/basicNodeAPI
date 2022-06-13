@@ -1,4 +1,5 @@
 const faker = require('faker');
+const boom = require('@hapi/boom');
 
 class RegisterService {
     constructor() {
@@ -30,7 +31,8 @@ class RegisterService {
                 dateCreacion: faker.datatype.datetime(),
                 dateConexión: fechasConexion,   
                 dateSize: dataSizeConexion,
-                image: faker.image.city()
+                image: faker.image.city(),
+                isBlock: faker.datatype.boolean()
             })
         }
     }
@@ -53,14 +55,20 @@ class RegisterService {
     }
 
     async findOne(id) {
-        return this.registers.find(item => item.id === id);
+        const registro = this.registers.find(item => item.id === id);
+        if(!registro) {
+            throw boom.notFound('Registro no encontrado')
+        }
+        if(registro.isBlock) {
+            throw boom.conflict('El registro esta bloqueado')
+        }
+        return registro;
     }
 
     async update(id, changes) {
-        // console.log(this.registers);
         const index = this.registers.findIndex((item) => item.id === id);
         if(index === -1) {
-             throw new Error('Registro no encontrado');
+            throw boom.notFound('Registro no encontrado');
         } 
 
         const register = this.registers[index];
@@ -75,7 +83,7 @@ class RegisterService {
         // console.log(this.registers);
         const index = this.registers.findIndex(item => item.id === id);
         if(index === -1) {
-             throw new Error('Registro no encontrado');
+             throw boom.notFound('Registro no encontrado');
         }
 
         this.registers.splice(index,1);
