@@ -1,12 +1,20 @@
 version: "3.3"
 services:
   postgres:
-    image: postgres
+    image: postgres:13
     environment:
-      - POSTGRES_DB:my_suavi
-      - POSTGRES_USER:emme
-      - POSTGRES_PASSWORD:m4nd4r1n
+      - POSTGRES_DB=my_suavi
+      - POSTGRES_USER=emme
+      - POSTGRES_PASSWORD=m4nd4r1n
     ports:
-      - "5432:5432"
+      - 5432:5432
     volumes:
       - ./postgres_data:/var/lib/postgresql/data
+
+  pgadmin:
+    image: dpage/pgadmin4
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=emme.arto@gmail.com
+      - PGADMIN_DEFAULT_PASSWORD=m4nd4r1n
+    ports:
+      - 5050:80  
