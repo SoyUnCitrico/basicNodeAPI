@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Internet CCD</title>
+    <style>
+        * {
+            margin: 0;
+        }
+
+        body {
+            display: grid;
+            place-items: center;
+            height: 100vh;
+            background-color: #020202;
+            color: #f9f9f9;
+        }
+        main {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-evenly;
+            align-items: center;
+            height: 80vh;
+            width: 70%;
+            /* background-color: red; */
+        }
+        .info_logo {
+            height: 320px;
+            width: 320px;
+            background-image: url('./assets/logo-ccd.svg');
+            background-position: center;
+            background-repeat: no-repeat;
+            object-fit: cover;
+            /* background-color: aqua; */
+        }
+
+        .info_texto {
+            display: grid;
+            grid-template-rows: 20px 80px 20px;
+            place-items: center;
+            margin-bottom: 2rem;
+            /* background-color: yellow; */
+        }
+
+
+        .info_texto h3 {
+            /* background-color: green; */
+        }
+
+        .info_texto h1 {
+            /* background-color: darkblue; */
+        }
+
+        .info_texto h3 {
+            /* background-color: green; */
+        }
+
+        .info_texto p {
+            /* background-color: darkred; */
+        }
+
+        .info_form {
+            padding-top: 0.75rem;
+            width: 40%;
+            display: grid;
+            justify-content: center;
+            /* background-color: red; */
+        }
+
+        .info_form label {
+            font-size: 14pt;
+        }
+
+        .info_form input{
+            font-size: 10pt;
+            margin: 0.5rem 0 1rem;
+            padding: 0.2rem 0.5rem;
+            font-family: monospace;
+        }
+        
+    </style>
+</head>
+<body>
+    <main>
+        <div class="info_logo" >
+            <!-- <img src='assets/logo-ccd.svg' alt="Logo del CCD"/> -->
+        </div>
+        <div class="info_texto">
+            <h3>Bienvenido, gracias por visitar el</h3>
+            <h1>Centro de Cultura Digital</h1>
+            <p>Cuerpo - Colectividad - Naturaleza - Justicia Social - Memoria -Movilidad</p>
+        </div>
+        <div class="info_form">
+            <form>
+                <label>Nombre de Usuario:</label>
+                <br/>
+                <input type="text" name="username" placeholder="Pepito_25" id="username_input"/>
+                <br>
+                <label>Email:</label>
+                <br/>
+                <input type="email" name="email" placeholder="email@mail.net" id="email_input"/>
+                <br>
+                <input type="button" value="Enviar" id="send_button">
+            </form>
+        </div>
+        <div class="info-privacidad">
+            <p>Consulta el <a href="./privacidad.html">Aviso de Privacidad</a></p>
+        </div>
+    </main>
+</body>
+<script>
+    const inputUser = document.getElementById('username_input');
+    const inputEmail = document.getElementById("email_input");
+    const buttonSend = document.getElementById("send_button");
+    // console.log(inputUser)
+    // console.log(inputEmail)
+    // console.log(buttonSend)
+    const getMessage = () => {
+        const usuario = inputUser.value ? inputUser.value : '';
+        const correo = inputEmail.value ? inputEmail.value : alert(`Falta el correo`);
+        const fechaSesion = new Date();
+        const dirIp = "192.168.155.129";
+        const dirMac = "78:45:c6:2f:89:46";
+        const nombreNodo = " Oficinas";
+
+        const message = {
+            username : usuario,
+            email : correo,
+            dateCreated : fechaSesion,
+            ip : dirIp,
+            mac : dirMac,
+            nodo : nombreNodo   
+        }
+        return message;
+    }
+
+    const sendData = async (url = '', data = {}) => {
+        console.log(data)
+        const response = await fetch(url, {
+            method: 'POST', 
+            mode: 'cors', // no-cors, *cors, same-origin
+            cache: 'no-cache', 
+            credentials: 'same-origin', 
+            headers: {
+            'Content-Type': 'application/json'
+            },
+            redirect: 'follow', // manual, *follow, error
+            referrerPolicy: 'no-referrer',
+            body: JSON.stringify(data),
+            // body: data
+        });
+        return response.json(); 
+    }
+
+    buttonSend.addEventListener('click', ()=>{
+        const mensaje = getMessage();
+        const uri = '/ccd/registro/'
+        sendData(uri, mensaje);
+    });
+</script>
+</html>

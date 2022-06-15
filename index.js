@@ -1,13 +1,14 @@
 const express = require('express');
+const path = require('path');
 const cors = require('cors');
 const { routerApi } = require('./routes')
-const { logErrors, errorHandler, boomErrorHandler } = require('./middlewares/error.handler');
+const { logErrors, errorHandler, boomErrorHandler, ormErrorHandler } = require('./middlewares/error.handler');
 
 const app = express();
 const port = process.env.PORT || 3005;
 app.use(express.json());
 const whiteList = [
-    'http://localhost:8080',
+    'http://localhost:3300',
     'https://myapp.com'
 ]
 const options= {
@@ -21,14 +22,13 @@ const options= {
 }
 app.use(cors(options));
 
-app.get('/', (req,res) => {
-    res.send('Hola mi server en express');
-});
+app.use(express.static(path.join(__dirname,'public')));
 
 routerApi(app);
 
 app.use(logErrors);
 app.use(boomErrorHandler);
+app.use(ormErrorHandler); 
 app.use(errorHandler);
 
 app.listen(port, ()  => {

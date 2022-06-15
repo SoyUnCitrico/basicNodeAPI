@@ -9,7 +9,7 @@ function validatorHandler(schema, property) {
         // req.query
         const {error} = schema.validate(data, {abortEarly: false});
         if(error) {
-            throw boom.badRequest(error)
+            next(boom.badRequest(error));
         }
         next();
     }

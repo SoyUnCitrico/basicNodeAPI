@@ -1,36 +1,45 @@
-const { required } = require('joi');
 const Joi = require('joi');
 
-const id = Joi.string().uuid();
+const id = Joi.number().integer();
 const username = Joi.string().alphanum().min(3).max(32);
 const email = Joi.string().email();
-const position = Joi.number();
 const ip = Joi.string();
-// const mac
-// const dateCreacion = Joi.isoDate();
-// const dateConexion = Joi.array().items(Joi.isoDate);
-const dataSize = Joi.number();
-const image = Joi.string().uri();
-const inBlock = Joi.boolean();
+const dateCreated = Joi.string().isoDate();
+// const sessions = Joi.array().items(Joi.string().isoDate());
+// const dataSize = Joi.array().items(Joi.number());
+const mac = Joi.string();
+const nodo = Joi.string();
 
 
 const createRegisterSchema = Joi.object({
-    username: username,
     email: email.required(),
+    username: username,
+    ip: ip,
+    dateCreated: dateCreated,
+    nodo: nodo,
+    mac: mac,
 })
 
 const updateRegisterSchema = Joi.object({
+    email: email.required(),
     username: username,
-    email: email,
-    ip: ip
+    ip: ip,
+    dateCreated: dateCreated,
+    nodo: nodo,
+    mac: mac,
 })
 
 const getRegisterSchema = Joi.object({
     id: id.required(),
 })
 
+const emailRegisterUpdateSchema = Joi.object({
+    email: email.required(),
+})
+
 module.exports = { 
     createRegisterSchema, 
     updateRegisterSchema, 
-    getRegisterSchema 
+    getRegisterSchema,
+    emailRegisterUpdateSchema
 }
