@@ -13,7 +13,7 @@ Para administrar la DB se usa pgadmin
     
 
 1. Descargar repositorio:
-    ` git clone ' ' `
+    ` git clone https://github.com/SoyUnCitrico/basicNodeAPI.git `
 
 2. Instalar entorno usando node 14. Mediante NVM adaptamos la version e instalamos:
     ``` bash   
