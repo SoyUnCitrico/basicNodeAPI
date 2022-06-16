@@ -8,9 +8,10 @@ Para administrar la DB se usa pgadmin
 
 ### Prerequisitos: 
 - Tener el gestor de versiones NVM para node.js:
+    https://github.com/nvm-sh/nvm
     
 - Tener docker desktop instalado y ejecutando en el equipo
-    
+    https://docs.docker.com/desktop/
 
 1. Descargar repositorio:
     ` git clone https://github.com/SoyUnCitrico/basicNodeAPI.git `
