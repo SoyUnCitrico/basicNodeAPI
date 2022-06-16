@@ -8,8 +8,8 @@ const app = express();
 const port = process.env.PORT || 3005;
 app.use(express.json());
 const whiteList = [
-    'http://localhost:3300',
-    'https://myapp.com'
+    'https://localhost:3300',
+    'https://localhost:1812',
 ]
 const options= {
     origin: (origin,callback) => {
