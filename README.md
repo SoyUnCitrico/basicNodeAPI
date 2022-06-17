@@ -19,9 +19,9 @@ Para administrar la DB se usa pgadmin
     ``` bash   
     git clone https://github.com/SoyUnCitrico/basicNodeAPI.git
     ```
-2. Instalar entorno usando node 14. Mediante NVM adaptamos la version e instalamos:
+2. Instalar entorno usando node 18. Mediante NVM adaptamos la version e instalamos:
     ``` bash   
-        nvm use 14
+        nvm install 18 && nvm use 18
         npm install
     ```
 3. Habilitar POSTGRES y  PGADMIN mediante el comando:
