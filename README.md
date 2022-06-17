@@ -21,10 +21,20 @@ Para administrar la DB se usa pgadmin
     ```
 2. Instalar entorno usando node 18. Mediante NVM adaptamos la version e instalamos:
     ``` bash   
-        nvm install 18 && nvm use 18
+    nvm install 18 && nvm use 18
         npm install
     ```
 3. Habilitar POSTGRES y  PGADMIN mediante el comando:
     ``` bash   
-        docker compose up -d postgres && docker compose up -d pgadmin
+    docker compose up -d postgres && docker compose up -d pgadmin
     ``` 
+4. Crear el archivo " .env " de acuerdo al archivo " .env.example "
+
+5. Exportar a la DB los schemas con sequelize:
+    ```bash
+    npm run migrations:run
+    ```
+6. Correr el servidor con:
+    ```bash
+    npm run dev
+    ```
