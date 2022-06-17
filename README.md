@@ -2,6 +2,7 @@
 
 
 ## API para servidor REST
+Esta API esta probada con un equipo con OS Ubuntu
 Se usa una DB en POSTGRES que se puede cambiar de manera facil cambiando 
 las variables de entorno en ".env" y el archivo de sequelize
 Para administrar la DB se usa pgadmin
@@ -11,6 +12,7 @@ Para administrar la DB se usa pgadmin
     https://github.com/nvm-sh/nvm
     
 - Tener docker desktop instalado y ejecutando en el equipo
+    https://docs.docker.com/engine/install/ubuntu/
     
 ## Instalación
 1. Descargar repositorio:
