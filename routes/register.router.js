@@ -42,6 +42,7 @@ router.post('/',
             const newRegister = await service.create(body);
             res.status(201).json({
                 message: "Creado: ",
+                statusCode: 201,
                 data: newRegister 
             });
         } catch(error) {

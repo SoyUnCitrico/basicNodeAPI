@@ -10,15 +10,17 @@ app.use(express.json());
 const whiteList = [
     'https://localhost:3300',
     'https://localhost:1812',
+    '*',
 ]
 const options= {
-    origin: (origin,callback) => {
-        if(whiteList.includes(origin) || (!origin)){
-            callback(null, true);
-        } else {
-            callback(new Error("No permitido"));
-        }
-    }
+    // origin: (origin,callback) => {
+    //     if(whiteList.includes(origin) || (!origin)){
+    //         callback(null, true);
+    //     } else {
+    //         callback(new Error("No permitido"));
+    //     }
+    // }
+    origin: true,
 }
 app.use(cors(options));
 
@@ -32,5 +34,5 @@ app.use(ormErrorHandler);
 app.use(errorHandler);
 
 app.listen(port, ()  => {
-    console.log("Mi puerto es: " + port);
+    console.log(`Servidor levantado en http://localhost:${port}`);
 });

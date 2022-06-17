@@ -111,6 +111,10 @@
     </main>
 </body>
 <script>
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    // console.log(queryString);
+    
     const inputUser = document.getElementById('username_input');
     const inputEmail = document.getElementById("email_input");
     const buttonSend = document.getElementById("send_button");
@@ -121,9 +125,9 @@
         const usuario = inputUser.value ? inputUser.value : '';
         const correo = inputEmail.value ? inputEmail.value : alert(`Falta el correo`);
         const fechaSesion = new Date();
-        const dirIp = "192.168.155.129";
-        const dirMac = "78:45:c6:2f:89:46";
-        const nombreNodo = " Oficinas";
+        const dirIp = urlParams.get('ip');
+        const dirMac = urlParams.get('mac');
+        const nombreNodo = urlParams.get('identity');
 
         const message = {
             username : usuario,
@@ -136,8 +140,28 @@
         return message;
     }
 
+    const handleErrors = (err) => {
+        if(!!err.statusCode && err.statusCode >= 400) {
+            switch(err.statusCode) {
+                case 400:
+                    if(alert('Informacion incorrecta, vuelve a intentarlo')){}
+                    else    window.location.reload();
+                    break;
+                case 409: 
+                    if(alert('Ese correo ya existe en la base de datos')){}
+                    else    window.location.reload();
+                    break;
+                default:
+                    // console.error("Error el enviar la data")
+                    if(alert('Error el enviar la data vuelve a intentarlo')){}
+                    else    window.location.reload();
+                    break;
+            }
+        }
+    }
+
     const sendData = async (url = '', data = {}) => {
-        console.log(data)
+        // console.log(data)
         const response = await fetch(url, {
             method: 'POST', 
             mode: 'cors', // no-cors, *cors, same-origin
@@ -149,7 +173,6 @@
             redirect: 'follow', // manual, *follow, error
             referrerPolicy: 'no-referrer',
             body: JSON.stringify(data),
-            // body: data
         });
         return response.json(); 
     }
@@ -157,7 +180,21 @@
     buttonSend.addEventListener('click', ()=>{
         const mensaje = getMessage();
         const uri = '/ccd/registro/'
-        sendData(uri, mensaje);
+        sendData(uri, mensaje)
+            .then(resp => {
+                // Manejo de errores al ingresar la data al formulario
+                handleErrors(resp);
+                // si fue aceptado el mensaje
+                console.log(resp.statusCode);
+                console.log(resp);
+
+                // Redireccion final hacia Google
+                // window.location.href = `https://www.google.com`;
+            })
+            .catch(e => {
+                console.log("CATCH => ")
+                console.error(e);   
+            })
     });
 </script>
 </html>

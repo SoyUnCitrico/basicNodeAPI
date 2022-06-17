@@ -11,7 +11,7 @@ Para administrar la DB se usa pgadmin
     
 - Tener docker desktop instalado y ejecutando en el equipo
     
-
+## Instalación
 1. Descargar repositorio:
     ` git clone https://github.com/SoyUnCitrico/basicNodeAPI.git `
 

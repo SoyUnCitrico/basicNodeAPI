@@ -1,7 +1,7 @@
 const Joi = require('joi');
 
 const id = Joi.number().integer();
-const username = Joi.string().alphanum().min(3).max(32);
+const username = Joi.string().min(3).max(32);
 const email = Joi.string().email();
 const ip = Joi.string();
 const dateCreated = Joi.string().isoDate();
